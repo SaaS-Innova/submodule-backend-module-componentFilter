@@ -9,7 +9,7 @@ import {
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { MaxLength, ValidateIf } from 'class-validator';
 import { ResponseObject } from '../../../../commons';
-import { CompanyHasUser } from '../../../../../src/modules/company-has-user/entities/company-has-user.entity';
+import { CompanyHasUser } from '../../../../modules/company-has-user/entities/company-has-user.entity';
 
 @Index(
   'unique_constraint',
