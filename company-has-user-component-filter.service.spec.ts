@@ -1,20 +1,21 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CompanyHasUserComponentFilterService } from './company-has-user-component-filter.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { CompanyHasUserComponentFilterService } from "./company-has-user-component-filter.service";
+import { ResponseMsgService } from "../../../commons";
 
-describe('CompanyHasUserComponentFilterService', () => {
+describe("CompanyHasUserComponentFilterService", () => {
   let service: CompanyHasUserComponentFilterService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [CompanyHasUserComponentFilterService],
+      providers: [ResponseMsgService, CompanyHasUserComponentFilterService],
     }).compile();
 
     service = module.get<CompanyHasUserComponentFilterService>(
-      CompanyHasUserComponentFilterService,
+      CompanyHasUserComponentFilterService
     );
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 });
