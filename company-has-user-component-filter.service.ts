@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { companyHasUserComponentFilterRepository } from './repository/company-has-user-component-filter.repository';
-import { CompanyHasUserComponentFilter } from './entities/company-has-user-component-filter.entity';
-import { CreateCompanyHasUserComponentFilterInput } from './dto/create-company-has-user-component-filter.input';
-import { UpdateCompanyHasUserComponentFilterInput } from './dto/update-company-has-user-component-filter.input';
-import { ComponentFilter } from './dto/component-filter.input';
-import { AbstractService, ResponseMsgService } from 'src/commons';
-import { DATA_BASE_ERROR_CODE } from 'src/commons/constant';
+import { Injectable } from "@nestjs/common";
+import { companyHasUserComponentFilterRepository } from "./repository/company-has-user-component-filter.repository";
+import { CompanyHasUserComponentFilter } from "./entities/company-has-user-component-filter.entity";
+import { CreateCompanyHasUserComponentFilterInput } from "./dto/create-company-has-user-component-filter.input";
+import { UpdateCompanyHasUserComponentFilterInput } from "./dto/update-company-has-user-component-filter.input";
+import { ComponentFilter } from "./dto/component-filter.input";
+import { AbstractService, ResponseMsgService } from "src/commons";
+import { DATA_BASE_ERROR_CODE } from "src/commons/constant";
 
 @Injectable()
 export class CompanyHasUserComponentFilterService extends AbstractService {
@@ -15,7 +15,7 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
 
   async create(
     data: CreateCompanyHasUserComponentFilterInput,
-    relations: string[] = null,
+    relations: string[] = null
   ): Promise<CompanyHasUserComponentFilter | boolean> {
     const create = this.abstractCreate(data, relations);
     return create;
@@ -24,7 +24,7 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
   async update(
     id: number,
     data: UpdateCompanyHasUserComponentFilterInput,
-    relations: string[] = null,
+    relations: string[] = null
   ): Promise<CompanyHasUserComponentFilter | boolean> {
     const update = this.abstractUpdate(id, data, relations);
     return update;
@@ -33,7 +33,7 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
   async getComponentFilterValue(
     componentName: string,
     componentType: string,
-    companyHasUser: number,
+    companyHasUser: number
   ) {
     const filter = await this.findOne({
       where: {
@@ -50,7 +50,7 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
   }
   async updateComponentFilterValue(
     data: ComponentFilter,
-    companyHasUser: number,
+    companyHasUser: number
   ): Promise<CompanyHasUserComponentFilter | boolean> {
     const existRecord = await this.findOne({
       where: {
@@ -73,7 +73,7 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
   async setComponentFilterValue(data: ComponentFilter, companyHasUser: number) {
     const updateRecord = await this.updateComponentFilterValue(
       data,
-      companyHasUser,
+      companyHasUser
     );
 
     if (updateRecord === false) {
@@ -89,7 +89,7 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
         if (e.code === DATA_BASE_ERROR_CODE.UNIQUE_CONSTRAINT) {
           const updateRecord = await this.updateComponentFilterValue(
             data,
-            companyHasUser,
+            companyHasUser
           );
           return updateRecord;
         }
@@ -100,7 +100,7 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
 
   async setValueOnComponentInitiate(
     data: ComponentFilter,
-    companyHasUser: number,
+    companyHasUser: number
   ) {
     const previousComponentFilter = await this.findOne({
       where: {
@@ -110,7 +110,7 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
       },
     });
 
-    if (previousComponentFilter === undefined) {
+    if (!previousComponentFilter) {
       await this.create({
         ...data,
         company_has_user_id: companyHasUser,
@@ -124,7 +124,7 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
   async getComponentFilter(
     id: number,
     data: UpdateCompanyHasUserComponentFilterInput,
-    relations: string[] = null,
+    relations: string[] = null
   ): Promise<CompanyHasUserComponentFilter | boolean> {
     const update = this.abstractUpdate(id, data, relations);
     return update;
