@@ -13,6 +13,16 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
     super(companyHasUserComponentFilterRepository, responseMsgService);
   }
 
+  /**
+   * Creates a new component filter record.
+   *
+   * Accepts data to create a new component filter record in the database.
+   * Optionally, relationships can be loaded as specified.
+   *
+   * @param {CreateCompanyHasUserComponentFilterInput} data - The data for creating a component filter.
+   * @param {string[]} [relations=null] - Optional array of relations to include.
+   * @returns {Promise<CompanyHasUserComponentFilter | boolean>} - The created component filter or false if unsuccessful.
+   */
   async create(
     data: CreateCompanyHasUserComponentFilterInput,
     relations: string[] = null
@@ -21,6 +31,17 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
     return create;
   }
 
+  /**
+   * Updates an existing component filter record.
+   *
+   * Finds and updates a component filter by its ID with provided data and
+   * optional relationships to include.
+   *
+   * @param {number} id - The ID of the component filter to update.
+   * @param {UpdateCompanyHasUserComponentFilterInput} data - The new data to apply.
+   * @param {string[]} [relations=null] - Optional array of relations to include.
+   * @returns {Promise<CompanyHasUserComponentFilter | boolean>} - The updated component filter or false if unsuccessful.
+   */
   async update(
     id: number,
     data: UpdateCompanyHasUserComponentFilterInput,
@@ -30,6 +51,17 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
     return update;
   }
 
+  /**
+   * Retrieves the current filter value for a specific component.
+   *
+   * Fetches the stored filter value for a given component name and type,
+   * associated with a particular user.
+   *
+   * @param {string} componentName - The name of the component.
+   * @param {string} componentType - The type of the component.
+   * @param {number} companyHasUser - The ID of the user associated with the filter.
+   * @returns {Promise<any>} - The component's filter value or null if not found.
+   */
   async getComponentFilterValue(
     componentName: string,
     componentType: string,
@@ -48,6 +80,17 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
       return null;
     }
   }
+
+  /**
+   * Updates a component filter's value.
+   *
+   * Checks if a filter record already exists for the given component name, type, and user.
+   * If it exists, updates it with new data; otherwise, returns false.
+   *
+   * @param {ComponentFilter} data - The new filter data.
+   * @param {number} companyHasUser - The ID of the user associated with the filter.
+   * @returns {Promise<CompanyHasUserComponentFilter | boolean>} - The updated component filter or false if not found.
+   */
   async updateComponentFilterValue(
     data: ComponentFilter,
     companyHasUser: number
@@ -70,6 +113,16 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
     }
   }
 
+  /**
+   * Sets or creates a component filter value.
+   *
+   * Attempts to update an existing component filter with new data. If no record is found,
+   * it creates a new component filter for the specified user.
+   *
+   * @param {ComponentFilter} data - The filter data to set or create.
+   * @param {number} companyHasUser - The ID of the user associated with the filter.
+   * @returns {Promise<CompanyHasUserComponentFilter | boolean>} - The updated or newly created component filter.
+   */
   async setComponentFilterValue(data: ComponentFilter, companyHasUser: number) {
     const updateRecord = await this.updateComponentFilterValue(
       data,
@@ -98,6 +151,16 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
     return updateRecord;
   }
 
+  /**
+   * Initializes component filter values upon component initiation.
+   *
+   * Checks if a filter already exists for the component and user. If it does, it returns
+   * the current filter value. If not, it creates a new filter with the provided data.
+   *
+   * @param {ComponentFilter} data - The initial filter data for the component.
+   * @param {number} companyHasUser - The ID of the user associated with the filter.
+   * @returns {Promise<any>} - The component's filter value.
+   */
   async setValueOnComponentInitiate(
     data: ComponentFilter,
     companyHasUser: number
@@ -121,6 +184,17 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
     }
   }
 
+  /**
+   * Updates component filter based on input data and relationships.
+   *
+   * Executes an update on a component filter record by its ID, using the provided data.
+   * Optionally includes specific relationships.
+   *
+   * @param {number} id - The ID of the component filter to update.
+   * @param {UpdateCompanyHasUserComponentFilterInput} data - Data for the update.
+   * @param {string[]} [relations=null] - Optional array of relations to include.
+   * @returns {Promise<CompanyHasUserComponentFilter | boolean>} - The updated component filter or false if unsuccessful.
+   */
   async getComponentFilter(
     id: number,
     data: UpdateCompanyHasUserComponentFilterInput,
