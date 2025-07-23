@@ -164,23 +164,27 @@ export class CompanyHasUserComponentFilterService extends AbstractService {
   async setValueOnComponentInitiate(
     data: ComponentFilter,
     companyHasUser: number
-  ) {
-    const previousComponentFilter = await this.findOne({
-      where: {
-        component_name: data.component_name,
-        component_type: data.component_type,
-        company_has_user_id: companyHasUser,
-      },
-    });
-
-    if (!previousComponentFilter) {
-      await this.create({
-        ...data,
-        company_has_user_id: companyHasUser,
+  ): Promise<string> {
+    try {
+      const previousComponentFilter = await this.findOne({
+        where: {
+          component_name: data.component_name,
+          component_type: data.component_type,
+          company_has_user_id: companyHasUser,
+        },
       });
-      return data.component_value;
-    } else {
-      return previousComponentFilter.component_value;
+      if (!previousComponentFilter) {
+        await this.create({
+          ...data,
+          company_has_user_id: companyHasUser,
+        });
+        return data.component_value;
+      } else {
+        return previousComponentFilter.component_value;
+      }
+    } catch (error) {
+      console.error("Error in setValueOnComponentInitiate:", error);
+      throw new Error("Failed to set component value");
     }
   }
 
