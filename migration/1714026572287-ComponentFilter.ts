@@ -43,5 +43,11 @@ export class Migration1714026572287 implements MigrationInterface {
     `);
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {}
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`DO $$
+    BEGIN
+        DROP TABLE IF EXISTS "company_has_user_component_filter";
+    END $$;
+    `);
+  }
 }
