@@ -8,8 +8,8 @@ import {
 } from 'typeorm';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { MaxLength, ValidateIf } from 'class-validator';
-import { ResponseObject } from '../../../../commons';
 import { CompanyHasUser } from '../../../../modules/company-has-user/entities/company-has-user.entity';
+import { ResponseObject } from "../../../commons/response-msg/response.object";
 
 @Index(
   'unique_constraint',

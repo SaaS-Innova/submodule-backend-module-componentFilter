@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Post, Query } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-
 import { CompanyHasUserComponentFilterService } from "./company-has-user-component-filter.service";
 import { ComponentFilter } from "./dto/component-filter.input";
 import { CurrentUser } from "src/commons/decorator/current-user.decorator";
